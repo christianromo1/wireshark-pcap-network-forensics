@@ -46,7 +46,7 @@ Filtering on `dns` shows the watched device sending every name lookup to `.1`.
 
 I followed the first DNS conversation (`udp.stream eq 0`) and read the response. `www.duckduckgo.com` comes back as an alias (a CNAME) for `duckduckgo.com`, and the A record (the one that holds the IPv4 address) is `40.89.244.232`. That same address shows up later as the destination of the browser's traffic, which is a nice cross-check.
 
-![DNS response with the A record](images/q05-dns-a-record-response.png)
+!DNS response with the A record](images/q05-dns-a-record-response.png)
 
 ---
 
@@ -60,7 +60,7 @@ Four different services in this capture sent credentials or sensitive content wi
 
 I filtered on the router's IP and looked at the HTTP requests. The first `GET /` got a `401 Unauthorized` back, and the next `GET /` carried an `Authorization: Basic ...` header. HTTP Basic authentication is just the username and password joined together and Base64 encoded (a way of writing data as text, not a form of encryption), meaning Wireshark can decode it instantly and shows it in a field labeled Credentials.
 
-![HTTP Basic authentication header with credentials blacked out](images/q06-router-http-basic-auth-redacted.png)
+!HTTP Basic authentication header with credentials blacked out](images/q06-router-http-basic-auth-redacted.png)
 
 ### Mail server login over Telnet
 
@@ -68,7 +68,7 @@ I filtered on the router's IP and looked at the HTTP requests. The first `GET /`
 
 Filtering on `telnet` and following the TCP stream shows the whole login. Telnet sends every keypress as its own packet, which is why the username is spelled out one letter at a time in the stream view.
 
-![Telnet login stream with the password blacked out](images/q07-telnet-login-stream-redacted.png)
+!Telnet login stream with the password blacked out](images/q07-telnet-login-stream-redacted.png)
 
 The same stream gave me three more answers:
 
@@ -76,13 +76,13 @@ The same stream gave me three more answers:
 - **Kernel:** `Linux 6.1.0-40-amd64`
 - **Full banner:** Debian 6.1.153-1, built 2025-09-20
 
-![Output of the uptime command](images/q08-telnet-uptime.png)
+!Output of the uptime command](images/q08-telnet-uptime.png)
 
-![Kernel version in the login banner](images/q10-telnet-kernel-banner.png)
+!Kernel version in the login banner](images/q10-telnet-kernel-banner.png)
 
 ### Editing the mail server's password file
 
-In that same Telnet session, the user went into `/etc/postfix` as root and ran `pico sasl_passwd`. That file holds the logins Postfix (the mail server software) uses to relay mail through other providers. The file ends up with three entries, one each for AOL, ProtonMail, and Gmail, and the line I identified as the addition was the Gmail relay entry (`smtp.gmail.com:587`). `[confirm which of the three lines was the new one]`
+In that same Telnet session, the user went into `/etc/postfix` as root and ran `pico sasl_passwd`. That file holds the logins Postfix (the mail server software) uses to relay mail through other providers. The file ends up with three entries, one each for AOL, ProtonMail, and Gmail, and the line I identified as the addition was the Gmail relay entry (`smtp.gmail.com:587`).
 
 ![Pico editing sasl_passwd with passwords blacked out](images/q14-pico-sasl-passwd-redacted.png)
 
@@ -170,8 +170,6 @@ Wireshark display filtering, Follow TCP/HTTP Stream, Export Objects, TLS decrypt
 **Encoding is not encryption.** The router login looked scrambled in the raw header, but Base64 is not protection, so Wireshark showed the credentials in a field of their own.
 
 **Checking my own work matters.** Rechecking my screenshots while writing this up, I caught a few typos in my original answers (an IP address and a MAC address), which is a good reminder to verify against the evidence before writing anything down.
-
-`[closing line: something honest about which question was hardest or what you'd do differently]`
 
 ## Repo Contents
 
