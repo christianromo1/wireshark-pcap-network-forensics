@@ -4,15 +4,13 @@ I did this project in October 2025 for my network analysis coursework. I was han
 
 I think the best way to describe it is that I had to reconstruct what a person did on their network without ever seeing their screen. The device, the router, the mail server, the web server, and the FTP server were all in the capture, and a lot of what happened on them was sent in cleartext.
 
-> The `.pcap` file and the assignment belong to the course, so they are not in this repo. As far as I know the capture is built around a fictional person `[confirm this with your professor or syllabus before publishing]`. I still blacked out every password in my screenshots, and I left out two screenshots completely (a tax form and a page full of saved logins), because I would not post real credentials or personal documents publicly and I would rather practice handling them the right way.
+> The `.pcap` file and the assignment belong to the course, so they are not in this repo. As far as I know the capture is built around a fictional person. I still blacked out every password in my screenshots, and I left out two screenshots completely (a tax form and a page full of saved logins), because I would not post real credentials or personal documents publicly and I would rather practice handling them the right way.
 
 ## Tools
 
 - **Wireshark** for all of the analysis: display filters, Follow TCP/HTTP Stream, File > Export Objects, and the packet details pane
 - **TLS decryption in Wireshark** using the key log file provided with the project, so the encrypted HTTP/2 traffic to DuckDuckGo could be read
 - A basic understanding of ICMP, DNS, HTTP, HTTP/2, Telnet, FTP, SMTP, and Ethernet headers
-
-`[add the Wireshark version and the name of the key log setting you used, if you remember them]`
 
 ---
 
@@ -30,7 +28,7 @@ Filtering on `icmp` shows five Echo Requests (pings) from the watched device to 
 
 ![ICMP echo requests in the capture](images/q03-icmp-echo-requests.png)
 
-**Gateway MAC:** `74:83:c2:79:4f:3d` (Ubiquiti) `[verify in Wireshark before publishing: the destination MAC of packets going from the watched device to an outside IP]`
+**Gateway MAC:** `74:83:c2:79:4f:3d` (Ubiquiti) 
 
 The gateway is the device a computer hands its traffic to when the destination is outside the local network. In the first screenshot above, the watched device is sending to an outside address (`34.107.221.82`), and the Ethernet destination on that packet is the Ubiquiti device. From my understanding that is the gateway, meaning the next hop for anything leaving the network.
 
