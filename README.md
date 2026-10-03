@@ -6,6 +6,16 @@ I think the best way to describe it is that I had to reconstruct what a person d
 
 > The `.pcap` file and the assignment belong to the course, so they are not in this repo. As far as I know the capture is built around a fictional person. I still blacked out every password in my screenshots, and I left out two screenshots completely (a tax form and a page full of saved logins), because I would not post real credentials or personal documents publicly and I would rather practice handling them the right way.
 
+## Findings at a Glance
+
+- **The device:** 172.16.27.17, a TP-Link machine using 172.16.27.1 for DNS.
+- **Cleartext logins:** A router login over HTTP Basic auth, a root login to the mail server over Telnet, and an FTP login, all readable straight out of the capture (passwords redacted here).
+- **The mail server:** Debian running kernel 6.1.0-40-amd64, up for 1 hour 32 minutes, with a Gmail relay login added to Postfix's password file.
+- **The email:** A plaintext SMTP message asking a security firm for a quote on identity protection.
+- **Web searches:** After decrypting the HTTP/2 traffic, the first complete search was "what is quantum cryptography."
+- **File download:** A 2024 tax return (PDF) pulled over FTP, which I rebuilt with Export Objects.
+- **The router:** A Linksys E2530 v3 running FreshTomato firmware.
+
 ## Tools
 
 - **Wireshark** for all of the analysis: display filters, Follow TCP/HTTP Stream, File > Export Objects, and the packet details pane
